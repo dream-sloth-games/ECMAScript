@@ -47,6 +47,13 @@ jobs:
           sconsflags: debug_symbols=no
           build-mono: false
           artifact: true
+        - name: Template sans Mono (target=release_debug, tools=no)
+          cache-name: linux-template
+          target: release_debug
+          tools: false
+          sconsflags: debug_symbols=yes
+          build-mono: false
+          artifact: true
     steps:
     - name: Checkout Godot
       uses: actions/checkout@v2

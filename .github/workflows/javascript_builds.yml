@@ -53,5 +53,13 @@ jobs:
         target: release
         tools: false
         shell: sh
+    - name: Compilation (debug)
+      uses: ./modules/ECMAScript/.github/actions/godot-build
+      with:
+        sconsflags: ${{ env.SCONSFLAGS }}
+        platform: javascript
+        target: release_debug
+        tools: false
+        shell: sh
     - name: Upload artifact
       uses: ./.github/actions/upload-artifact

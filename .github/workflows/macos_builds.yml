@@ -25,6 +25,10 @@ jobs:
           cache-name: macos-template
           target: release
           tools: false
+        - name: Template (target=release_debug, tools=no)
+          cache-name: macos-template
+          target: release_debug
+          tools: false
     steps:
     - name: Checkout Godot
       uses: actions/checkout@v2

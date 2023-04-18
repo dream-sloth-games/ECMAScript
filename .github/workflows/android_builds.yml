@@ -46,12 +46,28 @@ jobs:
         target: release
         tools: false
         shell: sh
+    - name: Compilation (armv7 debug)
+      uses: ./modules/ECMAScript/.github/actions/godot-build
+      with:
+        sconsflags: ${{ env.SCONSFLAGS }} android_arch=armv7
+        platform: android
+        target: release_debug
+        tools: false
+        shell: sh
     - name: Compilation (arm64v8)
       uses: ./modules/ECMAScript/.github/actions/godot-build
       with:
         sconsflags: ${{ env.SCONSFLAGS }} android_arch=arm64v8
         platform: android
         target: release
+        tools: false
+        shell: sh
+    - name: Compilation (arm64v8 debug)
+      uses: ./modules/ECMAScript/.github/actions/godot-build
+      with:
+        sconsflags: ${{ env.SCONSFLAGS }} android_arch=arm64v8
+        platform: android
+        target: release_debug
         tools: false
         shell: sh
     - name: Generate Godot templates
