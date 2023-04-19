@@ -25,10 +25,12 @@ jobs:
           cache-name: macos-template
           target: release
           tools: false
+          debug-opt: ''
         - name: Template (target=release_debug, tools=no)
           cache-name: macos-template
           target: release_debug
           tools: false
+          debug-opt: 'debug.'
     steps:
     - name: Checkout Godot
       uses: actions/checkout@v2
@@ -48,14 +50,25 @@ jobs:
       uses: ./modules/ECMAScript/.github/actions/godot-deps
       with:
         shell: sh
-    - name: Compilation
+    - name: Compilation (x86_64) 
       uses: ./modules/ECMAScript/.github/actions/godot-build
       with:
-        sconsflags: ${{ env.SCONSFLAGS }}
+        sconsflags: ${{ env.SCONSFLAGS }} arch=x86_64
         platform: osx
         target: ${{ matrix.target }}
         tools: ${{ matrix.tools }}
         shell: sh
+    - name: Compilation (arm64) 
+      uses: ./modules/ECMAScript/.github/actions/godot-build
+      with:
+        sconsflags: ${{ env.SCONSFLAGS }} arch=arm64
+        platform: osx
+        target: ${{ matrix.target }}
+        tools: ${{ matrix.tools }}
+        shell: sh
+    - name: Universal Binary
+      shell: bash
+      run: lipo -create bin/godot.osx.opt.${{ matrix.debug-opt }}x86_64 bin/godot.osx.opt.${{ matrix.debug-opt }}arm64 -output bin/godot.osx.opt.${{ matrix.debug-opt }}universal
     - name: Upload artifact
       uses: ./.github/actions/upload-artifact
       with:
