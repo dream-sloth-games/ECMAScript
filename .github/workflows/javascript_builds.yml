@@ -58,7 +58,7 @@ jobs:
       with:
         sconsflags: ${{ env.SCONSFLAGS }} debug_symbols=yes
         platform: javascript
-        target: release_debug
+        target: debug
         tools: false
         shell: sh
     - name: Upload artifact

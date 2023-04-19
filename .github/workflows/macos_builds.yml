@@ -67,6 +67,7 @@ jobs:
         tools: ${{ matrix.tools }}
         shell: sh
     - name: Universal Binary
+      if: ${{ !matrix.tools }}
       shell: bash
       run: lipo -create bin/godot.osx.opt.${{ matrix.debug-opt }}x86_64 bin/godot.osx.opt.${{ matrix.debug-opt }}arm64 -output bin/godot.osx.opt.${{ matrix.debug-opt }}universal
     - name: Upload artifact
