@@ -48,7 +48,7 @@ jobs:
     - name: Compilation (simulator debug)
       uses: ./modules/ECMAScript/.github/actions/godot-build
       with:
-        sconsflags: ${{ env.SCONSFLAGS }} arch=x86_64
+        sconsflags: ${{ env.SCONSFLAGS }} arch=x86_64 ios_simulator=yes
         platform: iphone
         target: debug
         tools: false
