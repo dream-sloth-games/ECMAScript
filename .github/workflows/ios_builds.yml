@@ -45,5 +45,13 @@ jobs:
         target: debug
         tools: false
         shell: sh
+    - name: Compilation (simulator debug)
+      uses: ./modules/ECMAScript/.github/actions/godot-build
+      with:
+        sconsflags: ${{ env.SCONSFLAGS }} arch=x86_64
+        platform: iphone
+        target: debug
+        tools: false
+        shell: sh
     - name: Upload artifact
       uses: ./.github/actions/upload-artifact
