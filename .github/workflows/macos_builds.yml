@@ -31,6 +31,30 @@ jobs:
           target: release_debug
           tools: false
           debug-opt: 'debug.'
+        - name: Editor w/ Mono (target=release_debug, tools=yes)
+          cache-name: macos-editor-mono
+          target: release_debug
+          tools: true
+          sconsflags: module_mono_enabled=yes mono_static=yes mono_glue=no
+          bin: ./bin/godot.osx.opt.tools.64.mono
+          build-mono: true
+          artifact: true
+        - name: Editor and sanitizers (target=debug, tools=yes)
+          cache-name: osx-editor-sanitizers
+          target: debug
+          tools: true
+          sconsflags: ' '
+          test: true
+          bin: ./bin/godot.osx.tools.64s
+          build-mono: false
+          artifact: true
+        - name: Template w/ Mono (target=release, tools=no)
+          cache-name: osx-template-mono
+          target: release
+          tools: false
+          sconsflags: module_mono_enabled=yes mono_static=yes mono_glue=no debug_symbols=no
+          build-mono: false
+          artifact: true
     steps:
     - name: Checkout Godot
       uses: actions/checkout@v2
