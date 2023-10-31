@@ -47,11 +47,18 @@ jobs:
           sconsflags: debug_symbols=no
           build-mono: false
           artifact: true
-        - name: Template sans Mono (target=release_debug, tools=no)
-          cache-name: linux-template
+        # - name: Template sans Mono (target=release_debug, tools=no)
+        #   cache-name: linux-template
+        #   target: release_debug
+        #   tools: false
+        #   sconsflags: debug_symbols=yes
+        #   build-mono: false
+        #   artifact: true
+        - name: Editor sans Mono (target=release_debug, tools=yes)
+          cache-name: linux-editor-mono
           target: release_debug
-          tools: false
-          sconsflags: debug_symbols=yes
+          tools: true
+          bin: ./bin/godot.x11.opt.tools.64
           build-mono: false
           artifact: true
     steps:
