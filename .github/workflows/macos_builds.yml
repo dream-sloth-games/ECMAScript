@@ -20,12 +20,13 @@ jobs:
           cache-name: macos-editor
           target: release_debug
           tools: true
-          bin: ./bin/godot.osx.opt.tools.64
+          bin: ./bin/godot.osx.opt.tools.64.mono
           sconsflags: module_mono_enabled=yes mono_static=yes mono_glue=no
         - name: Template (target=release, tools=no)
           cache-name: macos-template
           target: release
           tools: false
+          bin: ./bin/godot.osx.opt.tools.64.mono
           sconsflags: module_mono_enabled=yes mono_static=yes mono_glue=no debug_symbols=no
     steps:
     - name: Checkout Godot
