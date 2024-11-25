@@ -43,44 +43,6 @@ jobs:
           sconsflags: module_mono_enabled=yes mono_static=yes mono_glue=no debug_symbols=no
           build-mono: false
           artifact: true
-        
-        - name: Mac OS Editor w/ Mono (target=release_debug, tools=yes)
-          cache-name: linux-editor-mono
-          platform: osx
-          target: release_debug
-          tools: true
-          sconsflags: module_mono_enabled=yes mono_static=yes mono_glue=no
-          bin: ./bin/godot.x11.opt.tools.64.mono
-          build-mono: true
-          artifact: true
-        - name: Mac OS Template w/ Mono (target=release, tools=no)
-          cache-name: linux-template-mono
-          platform: osx
-          target: release
-          tools: false
-          sconsflags: module_mono_enabled=yes mono_static=yes mono_glue=no debug_symbols=no
-          build-mono: false
-          artifact: true
-
-        - name: Windows Editor w/ Mono (target=release_debug, tools=yes)
-          cache-name: linux-editor-mono
-          platform: windows
-          target: release_debug
-          tools: true
-          sconsflags: module_mono_enabled=yes mono_static=yes mono_glue=no
-          bin: ./bin/godot.x11.opt.tools.64.mono
-          build-mono: true
-          artifact: true
-        - name: Mac OS Template w/ Mono (target=release, tools=no)
-          cache-name: linux-template-mono
-          platform: windows
-          target: release
-          tools: false
-          sconsflags: module_mono_enabled=yes mono_static=yes mono_glue=no debug_symbols=no
-          build-mono: false
-          artifact: true
-
-
     steps:
     - name: Checkout Godot
       uses: actions/checkout@v2

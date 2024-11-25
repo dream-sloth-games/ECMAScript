@@ -21,10 +21,12 @@ jobs:
           target: release_debug
           tools: true
           bin: ./bin/godot.osx.opt.tools.64
+          sconsflags: module_mono_enabled=yes mono_static=yes mono_glue=no
         - name: Template (target=release, tools=no)
           cache-name: macos-template
           target: release
           tools: false
+          sconsflags: module_mono_enabled=yes mono_static=yes mono_glue=no debug_symbols=no
     steps:
     - name: Checkout Godot
       uses: actions/checkout@v2
@@ -47,7 +49,18 @@ jobs:
     - name: Compilation
       uses: ./modules/ECMAScript/.github/actions/godot-build
       with:
-        sconsflags: ${{ env.SCONSFLAGS }}
+        sconsflags: ${{ env.SCONSFLAGS }} ${{ matrix.sconsflags }}
+        platform: osx
+        target: ${{ matrix.target }}
+        tools: ${{ matrix.tools }}
+        shell: sh
+    - name: Generate Mono glue code
+      run: |
+        ${{ matrix.bin }} --generate-mono-glue modules/mono/glue || true
+    - name: Compilation (mono_glue=yes)
+      uses: ./modules/ECMAScript/.github/actions/godot-build
+      with:
+        sconsflags: ${{ env.SCONSFLAGS }} ${{ matrix.sconsflags }} mono_glue=yes
         platform: osx
         target: ${{ matrix.target }}
         tools: ${{ matrix.tools }}
