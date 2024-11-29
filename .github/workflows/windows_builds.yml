@@ -48,7 +48,9 @@ jobs:
         install: mingw-w64-x86_64-gcc
     - name: update mingw2
       run: pacman -Syu --needed --noconfirm mingw-w64-x86_64-python3-pip mingw-w64-x86_64-gcc
-        mingw-w64-i686-python3-pip mingw-w64-i686-gcc make
+        mingw-w64-i686-python3-pip mingw-w64-i686-gcc make mingw-w64-x86_64-mono
+    - name: print location
+      run: pacman -Fl mono
     - name: update scons
       run: pip3 install scons
     - name: Checkout Godot
@@ -72,7 +74,7 @@ jobs:
     - name: Compile base
       uses: ./modules/ECMAScript/.github/actions/godot-build
       with:
-        sconsflags: ${{ env.SCONSFLAGS }} module_mono_enabled=yes mono_static=yes mono_glue=no
+        sconsflags: ${{ env.SCONSFLAGS }} module_mono_enabled=yes mono_static=yes mono_glue=no mono_prefix="C:/msys64/mingw64"
         platform: windows
         target: release_debug
         tools: true
