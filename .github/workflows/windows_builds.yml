@@ -17,15 +17,28 @@ jobs:
       fail-fast: false
       matrix:
         include:
+        - name: Editor (target=release_debug, tools=yes, mono_enabled=yes)
+          cache-name: windows-editor-mono
+          target: release_debug
+          tools: true
+          bin: ./bin/godot.windows.opt.tools.64.exe
+          sconsflags: module_mono_enabled=yes mono_static=yes
+        - name: Template (target=release, tools=no, mono_enabled=yes)
+          cache-name: windows-template-mono
+          target: release
+          tools: false
+          sconsflags: module_mono_enabled=yes mono_static=yes
         - name: Editor (target=release_debug, tools=yes)
           cache-name: windows-editor
           target: release_debug
           tools: true
           bin: ./bin/godot.windows.opt.tools.64.exe
+          sconsflags: module_mono_enabled=yes mono_static=yes
         - name: Template (target=release, tools=no)
           cache-name: windows-template
           target: release
           tools: false
+          sconsflags: module_mono_enabled=yes mono_static=yes
     steps:
     - name: setup-msys2
       uses: msys2/setup-msys2@v2
@@ -56,10 +69,22 @@ jobs:
       uses: ./modules/ECMAScript/.github/actions/godot-deps
       with:
         shell: msys2 {0}
+    - name: Compile base
+      uses: ./modules/ECMAScript/.github/actions/godot-build
+      with:
+        sconsflags: ${{ env.SCONSFLAGS }} module_mono_enabled=yes mono_static=yes mono_glue=no
+        platform: windows
+        target: release_debug
+        tools: true
+        scons-cache-limit: 3072
+        shell: msys2 {0}
+    - name: Generate Mono glue code
+      run: |
+        ./bin/godot.windows.opt.tools.64.mono.exe --generate-mono-glue modules/mono/glue || true
     - name: Compilation
       uses: ./modules/ECMAScript/.github/actions/godot-build
       with:
-        sconsflags: ${{ env.SCONSFLAGS }}
+        sconsflags: ${{ env.SCONSFLAGS }} ${{matrix.sconsflags}}
         platform: windows
         target: ${{ matrix.target }}
         tools: ${{ matrix.tools }}
