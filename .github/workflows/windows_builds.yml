@@ -50,7 +50,9 @@ jobs:
       run: pacman -Syu --needed --noconfirm mingw-w64-x86_64-python3-pip mingw-w64-x86_64-gcc
         mingw-w64-i686-python3-pip mingw-w64-i686-gcc make mingw-w64-x86_64-mono
     - name: print location
-      run: pacman -Fl mono
+      run: |
+        pacman -Fl mono || pacman -Ql mingw-w64-x86_64-mono || which mono
+      continue-on-error: true
     - name: update scons
       run: pip3 install scons
     - name: Checkout Godot
