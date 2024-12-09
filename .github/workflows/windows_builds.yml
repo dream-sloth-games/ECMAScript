@@ -56,7 +56,7 @@ jobs:
       run: pacman -Fl mono || pacman -Ql mingw-w64-x86_64-mono
       continue-on-error: true
     - name: print location3
-      run: which mono
+      run: ls -l $(which mono)
       continue-on-error: true
     - name: update scons
       run: pip3 install scons
