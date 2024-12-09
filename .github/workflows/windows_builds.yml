@@ -50,8 +50,13 @@ jobs:
       run: pacman -Syu --needed --noconfirm mingw-w64-x86_64-python3-pip mingw-w64-x86_64-gcc
         mingw-w64-i686-python3-pip mingw-w64-i686-gcc make mingw-w64-x86_64-mono
     - name: print location
-      run: |
-        pacman -Fl mono || pacman -Ql mingw-w64-x86_64-mono || which mono
+      run: ls -l "/Program Files/Mono"
+      continue-on-error: true
+    - name: print location2
+      run: pacman -Fl mono || pacman -Ql mingw-w64-x86_64-mono
+      continue-on-error: true
+    - name: print location3
+      run: which mono
       continue-on-error: true
     - name: update scons
       run: pip3 install scons
