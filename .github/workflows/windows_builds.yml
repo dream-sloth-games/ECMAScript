@@ -78,7 +78,7 @@ jobs:
     - name: Compile base
       uses: ./modules/ECMAScript/.github/actions/godot-build
       with:
-        sconsflags: ${{ env.SCONSFLAGS }} module_mono_enabled=yes mono_glue=no mono_prefix=D:/a/GodotECMAScript/GodotECMAScript/desktop-windows-x86_64-release
+        sconsflags: ${{ env.SCONSFLAGS }} module_mono_enabled=yes mono_glue=no use_mingw=yes mono_prefix=D:/a/GodotECMAScript/GodotECMAScript/desktop-windows-x86_64-release
         platform: windows
         target: release_debug
         tools: true
