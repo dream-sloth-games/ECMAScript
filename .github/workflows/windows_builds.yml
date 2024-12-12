@@ -49,6 +49,8 @@ jobs:
     - name: update mingw2
       run: pacman -Syu --needed --noconfirm mingw-w64-x86_64-python3-pip mingw-w64-x86_64-gcc
         mingw-w64-i686-python3-pip mingw-w64-i686-gcc make mingw-w64-x86_64-mono
+    - name: Install Mono
+      run: choco install mono
     - name: print location
       run: ls -l "/Program Files/Mono"
       continue-on-error: true
